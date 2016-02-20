@@ -42,7 +42,7 @@ gulp.task("eslint", function() {
 
 // Check the SCSS code against scss-lint standards
 gulp.task("scsslint", function() {
-  return gulp.src("src/assets/css/scss/*.scss")
+  return gulp.src("src/assets/styles/*.scss")
     .pipe(scsslint())
     .pipe(scsslint.failReporter()); // Fail task on lint errors
 });
