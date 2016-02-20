@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="appkit" lang="en">
+    <head>
+        <title>Angular AppKit</title>
+        <!-- Metadata -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content=""/>
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <!-- build:css -->
+        <link rel="stylesheet" href="src/assets/styles/colours.scss">
+        <link rel="stylesheet" href="src/assets/styles/elements.scss">
+        <link rel="stylesheet" href="src/assets/styles/misc.scss">
+        <!-- endbuild -->
+    </head>
+    <body>
+        <!-- Markup -->
+        <siteheader></siteheader>
+        <main>
+            <ng-view></ng-view>
+        </main>
+        <sitefooter></sitefooter>
+        <!-- Scripts -->
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-material/angular-material.min.js"></script>
+        <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="bower_components/angular-route/angular-route.min.js"></script>
+        <!-- build:js -->
+        <script src="src/app/app.module.js"></script>
+        <script src="src/app/app.routes.js"></script>
+        <script src="src/app/common/footer/footerController.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>
