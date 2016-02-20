@@ -44,7 +44,7 @@ gulp.task("eslint", function() {
 gulp.task("scsslint", function() {
   return gulp.src("src/assets/styles/*.scss")
     .pipe(scsslint())
-    .pipe(scsslint.failReporter()); // Fail task on lint errors
+    .pipe(scsslint.failReporter()); // Report failures in the console
 });
 
 // ---------- Code tasks ----------
