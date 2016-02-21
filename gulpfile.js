@@ -1,4 +1,4 @@
-// ---------- Plugins ----------
+// ---------- Plugins and paths ----------
 
 var gulp = require("gulp"),
     clean = require("gulp-clean"),
@@ -11,7 +11,12 @@ var gulp = require("gulp"),
     htmlreplace = require("gulp-html-replace"),
     eslint = require("gulp-eslint"),
     scsslint = require("gulp-scss-lint"),
-    bump = require("gulp-bump");
+    bump = require("gulp-bump"),
+    paths = {
+        scripts : ["src/app/**/*.js", "gulpfile.js"],
+        styles  : "src/assets/styles/*.scss",
+        images  : "src/assets/img/**/*"
+    };
 
 // ---------- Tidy up tasks ----------
 
@@ -25,7 +30,7 @@ gulp.task("clean", function () {
 
 // Check the JS code against ESLint standards
 gulp.task("eslint", function() {
-  return gulp.src("src/app/**/*.js").pipe(eslint({
+  return gulp.src(paths.scripts).pipe(eslint({
     extends: "eslint:recommended",
     rules:{
         "quotes" : [1, "double"],
@@ -42,7 +47,7 @@ gulp.task("eslint", function() {
 
 // Check the SCSS code against scss-lint standards
 gulp.task("scsslint", function() {
-  return gulp.src("src/assets/styles/*.scss")
+  return gulp.src(paths.styles)
     .pipe(scsslint())
     .pipe(scsslint.failReporter()); // Report failures in the console
 });
@@ -58,7 +63,7 @@ gulp.task("build", ["scripts", "bower_components", "styles", "html", "images", "
 
 // Combine all the src JS, minify and then uglify it
 gulp.task("scripts", function() {
-  return gulp.src("src/app/**/*.js")
+  return gulp.src(paths.scripts)
     .pipe(concat("app.js"))
     .pipe(gulp.dest("dist"))
     .pipe(rename("app.min.js"))
@@ -68,7 +73,7 @@ gulp.task("scripts", function() {
 
 // Convert the sass into css, combine into one file, minify it
 gulp.task("styles", function() {
-  return gulp.src("src/assets/styles/*.scss")
+  return gulp.src(paths.styles)
     .pipe(sass().on("error", sass.logError)) // Log sass errors
     .pipe(concat("app.min.css"))
     .pipe(cssnano())
@@ -83,7 +88,7 @@ gulp.task("html", function() {
 
 // Move the images into /dist
 gulp.task("images", function() {
-  return gulp.src("src/assets/img/**/*")
+  return gulp.src(paths.images)
     .pipe(gulp.dest("dist/assets/img"));
 });
 
