@@ -1,25 +1,26 @@
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Avoid IE 10-11 min-height bug &  use % instead of vh since vh is buggy in older mobile Safari */
+  display: flex;
+  flex-direction: column;
+  height: 100%; // Avoid IE 10-11 min-height bug &  use % instead of vh since vh is buggy in older mobile Safari
 }
 
-main, ng-view {
-    flex: 1 0 auto;
+main,
+ng-view {
+  flex: 1 0 auto;
 }
 
-header, footer {
-    flex: none; /* prevent some browsers from letting these items shrink to smaller than their content's default minimum size */
+header,
+footer {
+  flex: none; // prevent some browsers from letting these items shrink to smaller than their content's default minimum size
+  padding: 1%;
 }
 
-header, footer, footer a {
-    background-color: #ccc;
-}
-
-header, footer {
-    padding: 1%;
+header,
+footer,
+footer a {
+  background-color: $light-grey;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
