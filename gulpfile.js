@@ -31,14 +31,15 @@ gulp.task("clean", function () {
 // Check the JS code against ESLint standards
 gulp.task("eslint", function() {
   return gulp.src(paths.scripts).pipe(eslint({
-    extends: "eslint:recommended",
-    rules:{
+    extends : "eslint:recommended",
+    rules : {
         "quotes" : [1, "double"],
         "semi"   : [1, "always"]
     },
-    globals: {
+    globals : {
         "angular" : true,
-        "appkit"  : true
+        "appkit"  : true,
+        "require" : true
     }
   }))
   .pipe(eslint.format())
