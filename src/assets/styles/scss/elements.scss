@@ -11,7 +11,7 @@ ng-view {
 
 header,
 footer {
-  flex: none; // prevent some browsers from letting these items shrink to smaller than their content's default minimum size
+  flex: none; // Prevent some browsers from letting these items shrink to smaller than their content's default minimum size
   padding: 1%;
 }
 
