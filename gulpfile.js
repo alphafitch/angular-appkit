@@ -18,7 +18,7 @@ var gulp = require("gulp"),
         images  : "src/assets/img/**/*"
     };
 
-// ---------- Tidy up tasks ----------
+// ---------- Code lint and tidy up tasks ----------
 
 // Clean /dist and remove everything
 gulp.task("clean", function () {
@@ -52,7 +52,10 @@ gulp.task("scsslint", function() {
     .pipe(scsslint.failReporter()); // Report failures in the console
 });
 
-// ---------- Code tasks ----------
+// Combination task which checks the .js and .scss files against coding standards
+gulp.task("code-check", ["eslint", "scsslint"]);
+
+// ---------- Production build tasks ----------
 
 // Build an artefact and zip everything up
 gulp.task("build", ["scripts", "bower_components", "styles", "html", "images", "index", "misc"], function() {
@@ -61,17 +64,17 @@ gulp.task("build", ["scripts", "bower_components", "styles", "html", "images", "
     .pipe(gulp.dest("dist"));
 });
 
-// Combine all the src JS, minify and then uglify it
+// Combine all the src JS, minify and then uglify
 gulp.task("scripts", function() {
   return gulp.src(paths.scripts)
     .pipe(concat("app.js"))
     .pipe(gulp.dest("dist"))
     .pipe(rename("app.min.js"))
-    //.pipe(uglify()) // Causes problems loading bower.json
+    .pipe(uglify()) // Causes problems loading bower.json
     .pipe(gulp.dest("dist"));
 });
 
-// Convert the sass into css, combine into one file, minify it
+// Combine sccs into one file, compile into css, minify
 gulp.task("styles", function() {
   return gulp.src(paths.styles)
     .pipe(sass().on("error", sass.logError)) // Log sass errors
@@ -162,8 +165,6 @@ gulp.task("bump-major", function() {
 
 // ---------- Other tasks ----------
 
-// Checks the .js and .scss files against coding standards
-gulp.task("code-check", ["eslint", "scsslint"]);
 
 // ---------- Release tasks ----------
 
