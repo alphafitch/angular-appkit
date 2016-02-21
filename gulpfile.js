@@ -124,6 +124,17 @@ gulp.task("misc", function() {
     .pipe(gulp.dest("dist/"));
 });
 
+// ---------- Local development build tasks ----------
+
+// Compiles scss into css without minifying so debugging is easier
+gulp.task("styles-dev", function() {
+  return gulp.src(paths.styles)
+    .pipe(concat("app.scss"))
+    .pipe(sass().on("error", sass.logError))
+    .pipe(rename("app.styles.css"))
+    .pipe(gulp.dest("dist"));
+});
+
 // ---------- Bump version number tasks ----------
 
 // Pre-release update for bower and npm versions
@@ -163,8 +174,12 @@ gulp.task("bump-major", function() {
   .pipe(gulp.dest("./"));
 });
 
-// ---------- Other tasks ----------
+// ---------- Watch task ----------
 
+// Rerun tasks when a file changes, for local development
+gulp.task("watch", function() {
+  gulp.watch(paths.styles, ["styles-dev"]);
+});
 
 // ---------- Release tasks ----------
 
@@ -174,3 +189,8 @@ gulp.task("dev-release",   ["code-check", "bump-prerelease", "build"]);
 gulp.task("patch-release", ["code-check", "bump-patch", "build"]);
 gulp.task("minor-release", ["code-check", "bump-minor", "build"]);
 gulp.task("major-release", ["code-check", "bump-major", "build"]);
+
+// ---------- Default task ----------
+
+// Compile the scss into css but don"t minify incase of debugging, watch for changes
+gulp.task("default", ["code-check", "styles-dev", "watch"]);
