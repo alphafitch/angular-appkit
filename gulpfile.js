@@ -12,6 +12,7 @@ var gulp = require("gulp"),
     eslint = require("gulp-eslint"),
     scsslint = require("gulp-scss-lint"),
     bump = require("gulp-bump"),
+    tag_version = require('gulp-tag-version'),
     paths = {
         scripts : ["src/app/**/*.js", "gulpfile.js"],
         styles  : "src/assets/styles/*.scss",
@@ -175,6 +176,13 @@ gulp.task("bump-major", function() {
   .pipe(gulp.dest("./"));
 });
 
+// ---------- Git task ----------
+
+// Tag the git repository using the version number in the package.json
+gulp.task('git-tag', function() {
+  return gulp.src(['./package.json']).pipe(tag_version());
+});
+
 // ---------- Watch task ----------
 
 // Rerun tasks when a file changes, for local development
@@ -184,12 +192,13 @@ gulp.task("watch", function() {
 
 // ---------- Release tasks ----------
 
+// Dev release
+gulp.task("dev-release",   ["code-check", "build"]);
 // Check code standards, update the version numbers as
-// needed then create the release artefact
-gulp.task("dev-release",   ["code-check", "bump-prerelease", "build"]);
-gulp.task("micro-release", ["code-check", "bump-patch", "build"]);
-gulp.task("minor-release", ["code-check", "bump-minor", "build"]);
-gulp.task("major-release", ["code-check", "bump-major", "build"]);
+// needed, create the release artefact, tag the branch in git and commit it
+gulp.task("micro-release", ["code-check", "bump-patch", "build", "git-tag"]);
+gulp.task("minor-release", ["code-check", "bump-minor", "build", "git-tag"]);
+gulp.task("major-release", ["code-check", "bump-major", "build", "git-tag"]);
 
 // ---------- Default task ----------
 
