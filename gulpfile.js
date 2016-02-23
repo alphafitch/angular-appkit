@@ -148,7 +148,7 @@ gulp.task("bump-prerelease", function() {
   .pipe(gulp.dest("./"));
 });
 
-// Patch update for bower and npm versions
+// Micro update for bower and npm versions
 gulp.task("bump-patch", function() {
   gulp.src(["./bower.json", "./package.json"])
   .pipe(bump({
@@ -187,7 +187,7 @@ gulp.task("watch", function() {
 // Check code standards, update the version numbers as
 // needed then create the release artefact
 gulp.task("dev-release",   ["code-check", "bump-prerelease", "build"]);
-gulp.task("patch-release", ["code-check", "bump-patch", "build"]);
+gulp.task("micro-release", ["code-check", "bump-patch", "build"]);
 gulp.task("minor-release", ["code-check", "bump-minor", "build"]);
 gulp.task("major-release", ["code-check", "bump-major", "build"]);
 
