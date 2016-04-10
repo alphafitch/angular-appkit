@@ -1,0 +1,3 @@
+appkit.controller("appController", function() {
+
+});
