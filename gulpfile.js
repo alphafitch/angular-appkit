@@ -12,8 +12,8 @@ var gulp = require("gulp"),
     eslint = require("gulp-eslint"),
     scsslint = require("gulp-scss-lint"),
     bump = require("gulp-bump"),
-    git = require('gulp-git'),
-    tag_version = require('gulp-tag-version'),
+    git = require("gulp-git"),
+    tag_version = require("gulp-tag-version"),
     paths = {
         scripts : ["src/app/**/*.js", "gulpfile.js"],
         styles  : "src/assets/styles/*.scss",
@@ -180,9 +180,9 @@ gulp.task("bump-major", function() {
 // ---------- Git tasks ----------
 
 // Tag the git repository using the version number in the package.json
-gulp.task('git-tag', function() {
-  return gulp.src(['./package.json'])
-    .pipe(git.commit('Releasing new version'))
+gulp.task("git-tag", function() {
+  return gulp.src(["./package.json"])
+    .pipe(git.commit("Releasing new version"))
     .pipe(tag_version());
 });
 
