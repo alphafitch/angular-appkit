@@ -15,9 +15,14 @@ var gulp = require("gulp"),
     git = require("gulp-git"),
     tag_version = require("gulp-tag-version"),
     paths = {
-        scripts : ["src/app/**/*.js", "gulpfile.js"],
-        styles  : "src/assets/styles/*.scss",
-        images  : "src/assets/img/**/*"
+        // All JS files - for linting
+        allscripts : ["src/app/**/*.js", "gulpfile.js"],
+        // Only source JS files - for building the artefact
+        appscripts : ["src/app/app.module.js", "src/app/**/*.js"],
+        // All scss files
+        styles     : "src/assets/styles/*.scss",
+        // All image files
+        images     : "src/assets/images/**/*.png"
     };
 
 // ---------- Code lint and tidy up tasks ----------
@@ -32,7 +37,7 @@ gulp.task("clean", function () {
 
 // Check the JS code against ESLint standards
 gulp.task("eslint", function() {
-  return gulp.src(paths.scripts).pipe(eslint({
+  return gulp.src(paths.allscripts).pipe(eslint({
     extends : "eslint:recommended",
     rules : {
         "quotes" : [1, "double"],
@@ -69,7 +74,7 @@ gulp.task("build", ["scripts", "bower_components", "styles", "html", "images", "
 
 // Combine all the src JS, minify and then uglify
 gulp.task("scripts", function() {
-  return gulp.src(paths.scripts)
+  return gulp.src(paths.appscripts)
     .pipe(concat("app.js"))
     .pipe(gulp.dest("dist"))
     .pipe(rename("app.min.js"))
